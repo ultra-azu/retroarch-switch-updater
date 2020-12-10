@@ -1,0 +1,5 @@
+/build*
+compile_flags.txt
+*.elf
+*.nacp
+*.nro
