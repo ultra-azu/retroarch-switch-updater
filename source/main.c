@@ -158,19 +158,22 @@ err:
 // Main program entrypoint
 int main(void) {
 	int ret;
+	PadState pad;
 
 	consoleInit(NULL);
+	padConfigureInput(1, HidNpadStyleSet_NpadStandard);
+	padInitializeDefault(&pad);
 	socketInitializeDefault();
 
 	printf("Do you want to update the RetroArch loader?\nPress + for returning to hbmenu, Y for updating.\n");
 	consoleUpdate(NULL);
 
 	while (appletMainLoop()) {
-		hidScanInput();
-		u64 kDown = hidKeysDown(CONTROLLER_P1_AUTO);
-		if (kDown & KEY_PLUS)
+		padUpdate(&pad);
+		u64 kDown = padGetButtonsDown(&pad);
+		if (kDown & HidNpadButton_Plus)
 			break;
-		else if (kDown & KEY_Y) {
+		else if (kDown & HidNpadButton_Y) {
 			ret = getfile();
 			if (ret) {
 				puts("Error: couldn't get file!");
