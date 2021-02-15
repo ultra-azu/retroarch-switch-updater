@@ -126,6 +126,7 @@ int unzipfile() {
 	void *buf = malloc(BUFFER_SIZE);
 	if (buf == NULL) {
 		puts("unzipfile(): Failed to allocate buffer!");
+		consoleUpdate(NULL);
 		ret = 1;
 		goto err;
 	}
@@ -177,12 +178,16 @@ int main(void) {
 			ret = getfile();
 			if (ret) {
 				puts("Error: couldn't get file!");
+				consoleUpdate(NULL);
 				continue;
-			} else
+			} else {
 				puts("Downloaded zip!");
+				consoleUpdate(NULL);
+			}
 			ret = unzipfile();
 			if (ret) {
 				puts("Error: couldn't unzip file!");
+				consoleUpdate(NULL);
 				continue;
 			} else {
 				if (access(NRO_OUTPUT, F_OK) != -1) {
@@ -190,9 +195,9 @@ int main(void) {
 					remove(ZIP_OUTPUT);
 				} else
 					puts("Error: Even after unzipping, for whatever reason the nro doesn't exists.");
+				consoleUpdate(NULL);
 			}
 		}
-		consoleUpdate(NULL);
 	}
 	consoleExit(NULL);
 	socketExit();
