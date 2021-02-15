@@ -44,6 +44,7 @@ DATA		:=	data
 INCLUDES	:=	include
 APP_TITLE	:=	Retroarch Nightly Updater
 APP_AUTHOR	:=	gavodavo
+APP_VERSION	:=	1.0.1
 #ROMFS	:=	romfs
 
 #---------------------------------------------------------------------------------
